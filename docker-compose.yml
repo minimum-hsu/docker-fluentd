@@ -1,0 +1,19 @@
+version: '3.6'
+
+services:
+  fluentd:
+    image: fluentd
+    build: .
+    restart: always
+    volumes:
+      - pos:/var/pos
+      - ./fluent.conf:/fluentd/etc/fluent.conf
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '3'
+
+volumes:
+  pos:
+    driver: local
